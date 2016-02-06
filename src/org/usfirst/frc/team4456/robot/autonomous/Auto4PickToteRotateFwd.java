@@ -23,7 +23,7 @@ public class Auto4PickToteRotateFwd implements AutoSequence
 	public void runInit()
 	{
 		initialRotation = robot.navx.getYaw();
-		robot.hooks.setIndex(Constants.HOOK_LOADER_POSITIONS.length - 2);
+		robot.hooks.setIndex(Constants.CANNON_POSITIONS.length - 2);
 		rotate();
 		initialDisplacement = robot.navx.getDisplacementY();
 	}

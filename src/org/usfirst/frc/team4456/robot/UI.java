@@ -110,7 +110,7 @@ public class UI
     {
     	//positions
 		SmartDashboard.putNumber("Ladder TrashCanArmEncoder", robot.ladder.getWinchPosition());
-		SmartDashboard.putNumber("Hooks TotesEncoder", robot.hooks.getWinchPosition());
+		SmartDashboard.putNumber("Hooks TotesEncoder", robot.hooks.getCannonPosition());
 		robot.limitModeEnabled = SmartDashboard.getBoolean("Winches Limit Mode Enabled");
 		
 		//level indexes
