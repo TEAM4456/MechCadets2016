@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 
 /**
  * @author bmaranville
@@ -109,5 +110,17 @@ public class LidarBackup implements PIDSource
 		{
 			update();
 		}
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPIDSourceType(PIDSourceType arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

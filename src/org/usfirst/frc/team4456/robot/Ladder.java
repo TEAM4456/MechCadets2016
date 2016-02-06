@@ -1,8 +1,9 @@
 package org.usfirst.frc.team4456.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
@@ -40,7 +41,7 @@ public class Ladder
 	public Ladder(int idTalon, int id1_1, int id1_2, int id2_1, int id2_2)
 	{
 		talon = new CANTalon(idTalon);
-		talon.changeControlMode(ControlMode.Position);
+		talon.changeControlMode(TalonControlMode.Position);
 		talon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		talon.setPID(pValueDn, 0.000001, 0);
 		talon.setPosition(0);

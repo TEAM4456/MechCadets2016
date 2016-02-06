@@ -3,6 +3,7 @@ package org.usfirst.frc.team4456.robot.SDashUI;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SDPID implements SDElement
@@ -21,6 +22,18 @@ public class SDPID implements SDElement
 			public double pidGet()
 			{
 				return 0;
+			}
+
+			@Override
+			public PIDSourceType getPIDSourceType() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void setPIDSourceType(PIDSourceType arg0) {
+				// TODO Auto-generated method stub
+				
 			}
 		};
 		pidOut = new PIDOutput()
