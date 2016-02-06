@@ -33,7 +33,7 @@ public class Hooks
 	public Hooks(int id)
 	{
 		talon = new CANTalon(id);
-		talon.changeControlMode(CANTalon.ControlMode.Position);
+		talon.changeControlMode(CANTalon.TalonControlMode.Position);
 		talon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		talon.setPID(.7, 0.000001, 0);
 		talon.setPosition(0);
