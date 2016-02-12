@@ -26,7 +26,7 @@ public class AutonomousCommand1 extends Command
 	{
 		System.out.println("Running AutoCommand1");
 		initialDisplacement = robot.navx.getDisplacementY();
-		robot.hooks.setIndex(Constants.HOOK_LOADER_POSITIONS.length - 2); // raise hooks to level 1
+		robot.hooks.setIndex(Constants.CANNON_POSITIONS.length - 2); // raise hooks to level 1
 	}
 	
 	//periodically called until command finishes
@@ -35,7 +35,7 @@ public class AutonomousCommand1 extends Command
 	protected void execute()
 	{
 		int arrayLength = Constants.WINCH_LADDER_POSITIONS.length;
-		if(robot.hooks.getWinchPosition() > Constants.HOOK_LOADER_AUTO_CHECK_POSITION) // if hooks are above level 1 - 200 encoder units
+		if(robot.hooks.getCannonPosition() > Constants.HOOK_LOADER_AUTO_CHECK_POSITION) // if hooks are above level 1 - 200 encoder units
 			robot.driver.driveRawPolar(.4, 180, 0, robot);
 		isFinished = (Math.abs(robot.navx.getDisplacementY() - initialDisplacement) > 15);
 	}
@@ -52,7 +52,7 @@ public class AutonomousCommand1 extends Command
 	protected void end()
 	{
 		robot.driver.driveRawPolar(0, 0, 0, robot);
-		robot.hooks.setIndex(Constants.HOOK_LOADER_POSITIONS.length - 1); // set hooks back down to the lowest level
+		robot.hooks.setIndex(Constants.CANNON_POSITIONS.length - 1); // set hooks back down to the lowest level
 	}
 	
 	//called when command is interrupted

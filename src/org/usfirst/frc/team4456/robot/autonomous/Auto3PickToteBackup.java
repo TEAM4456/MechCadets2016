@@ -23,7 +23,7 @@ public class Auto3PickToteBackup implements AutoSequence
 	public void runInit()
 	{
 		initialDisplacement = robot.navx.getDisplacementY();
-		robot.hooks.setIndex(Constants.HOOK_LOADER_POSITIONS.length - 2);
+		robot.hooks.setIndex(Constants.CANNON_POSITIONS.length - 2);
 		
 		/*
 		//TIME BASED--
@@ -40,7 +40,7 @@ public class Auto3PickToteBackup implements AutoSequence
 		{
 			//if hooks encoder value is under -2700 encoder units
 			//reminder:lower encoder value = higher hooks position
-			if(robot.hooks.getWinchPosition() < Constants.HOOK_LOADER_AUTO_CHECK_POSITION)
+			if(robot.hooks.getCannonPosition() < Constants.HOOK_LOADER_AUTO_CHECK_POSITION)
 				robot.driver.driveRawPolar(.4, 180, 0, robot);
 			
 			if(Math.abs(robot.navx.getDisplacementY() - initialDisplacement) > 15)

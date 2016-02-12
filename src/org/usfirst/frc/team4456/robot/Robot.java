@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot
 	public Driver driver;
 	
 	boolean limitModeEnabled = true;
-	public Hooks hooks;
+	public Aims hooks;
 	public Ladder ladder;
 	
 	DigitalInput limitSwitch;
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot
     {	
     	// Hooks and Ladder init
     	ladder = new Ladder(15, Constants.piston1Port1, Constants.piston1Port2, Constants.piston2Port1, Constants.piston2Port2);
-    	hooks = new Hooks(13);
+    	hooks = new Aims(13);
     	
     	// Mechanum and Gyro booleans for Driver
     	useMechanum = true;

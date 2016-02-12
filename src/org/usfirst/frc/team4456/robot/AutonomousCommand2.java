@@ -10,7 +10,7 @@ public class AutonomousCommand2 extends Command
 	Robot robot;
 	boolean isFinished = false;
 	double initialDisplacement;
-	int hookPositionsLength = Constants.HOOK_LOADER_POSITIONS.length;
+	int hookPositionsLength = Constants.CANNON_POSITIONS.length;
 	
 	Timer timer = new Timer();
 	
@@ -49,7 +49,7 @@ public class AutonomousCommand2 extends Command
 	protected void end()
 	{
 		robot.driver.driveRawPolar(0, 0, 0, robot);
-		robot.hooks.setIndex(Constants.HOOK_LOADER_POSITIONS.length - 1); // set hooks back down to the lowest level
+		robot.hooks.setIndex(Constants.CANNON_POSITIONS.length - 1); // set hooks back down to the lowest level
 	}
 	
 	//called when command is interupted

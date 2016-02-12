@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
  * LT RT nudge
  * @author oom2013
  */
-public class Hooks
+public class Aims
 {
 	/*
 	 * Controls:
@@ -30,7 +30,7 @@ public class Hooks
 	 * @param id
 	 * @author oom2013
 	 */
-	public Hooks(int id)
+	public Aims(int id)
 	{
 		talon = new CANTalon(id);
 		talon.changeControlMode(CANTalon.TalonControlMode.Position);
@@ -53,7 +53,7 @@ public class Hooks
 	
 	public void setIndex(int index)
 	{
-		talon.set(Constants.HOOK_LOADER_POSITIONS[index]);
+		talon.set(Constants.CANNON_POSITIONS[index]);
 	}
 	/**
 	 * Takes inputs from the XBoxController and performs actions based on them
@@ -62,12 +62,12 @@ public class Hooks
 	 */
 	public void cycle(XBoxController controller, Robot robot)
 	{
-		// Left bumper raises winch by one level
+		// Left bumper raises cannon by one level
 		boolean rawLeftBumperState = controller.getLBumper();
 		if(rawLeftBumperState && !leftBumperPress)
 		{
 			leftBumperPress = true;
-			this.raiseHooks();
+			this.raiseCannon();
 		}
 		else if(!rawLeftBumperState && leftBumperPress)
 		{
@@ -81,12 +81,12 @@ public class Hooks
 			 */
 		}
 		
-		// Right bumper lowers winch by one level
+		// Right bumper lowers cannon by one level
 		boolean rawRightBumperState = controller.getRBumper();
 		if(rawRightBumperState && !rightBumperPress)
 		{
 			rightBumperPress = true;
-			this.lowerHooks();
+			this.lowerCannon();
 		}
 		else if(!rawRightBumperState && rightBumperPress)
 		{
@@ -102,12 +102,12 @@ public class Hooks
 		
 		
 		//NUDGE
-		// Left and right triggers move the hooks down and up
-		double talonSetValue = talon.getSetpoint() + (Constants.MAX_HOOK_NUDGE * controller.getAxisTriggers());
+		// Left and right triggers move the cannon down and up
+		double talonSetValue = talon.getSetpoint() + (Constants.MAX_CANNON_NUDGE * controller.getAxisTriggers());
 		if (robot.limitModeEnabled)
 		{
 			//will set limits if limitModeEnabled
-			talonSetValue = Util.max(talonSetValue, Constants.HOOK_LOADER_POSITIONS[0] - 400);
+			talonSetValue = Util.max(talonSetValue, Constants.CANNON_POSITIONS[0] - 400);
 			talonSetValue = Util.min(talonSetValue, 1000);
 		}
 		talon.set(talonSetValue);
@@ -116,54 +116,55 @@ public class Hooks
 	}
 	
 	/** 
-	 * Returns what the current winch position is at
+	 * Returns what the current Cannon position is at
+	 * 
 	 * @author oom2013
 	 */
-	public double getWinchPosition()
+	public double getCannonPosition()
 	{
 		return talon.get();
 	}
 	
 	/**
-	 *  Raises winch to closest default winch position above it 
+	 *  Raises cannon to closest default cannon position above it 
 	 *  unless the current position is above a certain threshold. 
 	 *  If so, it goes to the next highest position.
 	 *  @author oom2013
 	 */
-	private void lowerHooks()
+	private void lowerCannon()
 	{
 		int closestIndex = findClosestPosition();
 		int targetIndex;
-		if(closestIndex >= Constants.HOOK_LOADER_POSITIONS.length-1)
+		if(closestIndex >= Constants.CANNON_POSITIONS.length-1)
 		{
-			targetIndex = Constants.HOOK_LOADER_POSITIONS.length - 1;
+			targetIndex = Constants.CANNON_POSITIONS.length - 1;
 		}
 		else
 		{
 			targetIndex = closestIndex + 1;
 		}
-		talon.set(Constants.HOOK_LOADER_POSITIONS[targetIndex]);
+		talon.set(Constants.CANNON_POSITIONS[targetIndex]);
 		this.currentTargetIndex = targetIndex;
 	}
 	
 	/*
 	/** 
-	 * Raises winch to the maximum position
+	 * Raises cannon to the maximum position
 	 * @author oom2013
 	private void raiseHooksMax()
 	{
-		talon.set(Constants.HOOK_LOADER_POSITIONS[Constants.HOOK_LOADER_POSITIONS.length-1]);
-		this.currentTargetIndex = Constants.HOOK_LOADER_POSITIONS.length-1;
+		talon.set(Constants.CANNON_POSITIONS[Constants.CANNON_POSITIONS.length-1]);
+		this.currentTargetIndex = Constants.CANNON_POSITIONS.length-1;
 	}
 	*/
 	
 	/**
-	 *  Lowers winch to closest default winch position below it 
+	 *  Lowers cannon to closest default cannon position below it 
 	 *  unless the current position is above a certain threshold. 
 	 *  If so, it goes to the next lowest position.
 	 *  @author oom2013
 	 */
-	private void raiseHooks()
+	private void raiseCannon()
 	{
 		int closestIndex = findClosestPosition();
 		int targetIndex;
@@ -175,17 +176,17 @@ public class Hooks
 		{
 			targetIndex = closestIndex-1;
 		}
-		talon.set(Constants.HOOK_LOADER_POSITIONS[targetIndex]);
+		talon.set(Constants.CANNON_POSITIONS[targetIndex]);
 		this.currentTargetIndex = targetIndex;
 	}
 	
 	/*
 	/** 
-	 * Lowers winch to the minimum position
+	 * Lowers cannon to the minimum position
 	 * @author oom2013
 	private void lowerHooksMin()
 	{
-		talon.set(Constants.HOOK_LOADER_POSITIONS[0]);
+		talon.set(Constants.CANNON_POSITIONS[0]);
 		this.currentTargetIndex = 0;
 	}
 	*/
@@ -199,11 +200,11 @@ public class Hooks
 		double currentPos = talon.get();
 		double closestDistance = 0;
 		int closestIndex = 0;
-		double highestPos = Constants.HOOK_LOADER_POSITIONS[Constants.HOOK_LOADER_POSITIONS.length-1];
-		double lowestPos = Constants.HOOK_LOADER_POSITIONS[0];
+		double highestPos = Constants.CANNON_POSITIONS[Constants.CANNON_POSITIONS.length-1];
+		double lowestPos = Constants.CANNON_POSITIONS[0];
 		if(currentPos > highestPos)
 		{
-			return Constants.HOOK_LOADER_POSITIONS.length-1;
+			return Constants.CANNON_POSITIONS.length-1;
 		}
 		else if(currentPos < lowestPos)
 		{
@@ -211,9 +212,9 @@ public class Hooks
 		}
 		else
 		{
-			for(int i = 0; i < Constants.HOOK_LOADER_POSITIONS.length; i++)
+			for(int i = 0; i < Constants.CANNON_POSITIONS.length; i++)
 			{
-				double distance = Math.abs(currentPos - Constants.HOOK_LOADER_POSITIONS[i]);
+				double distance = Math.abs(currentPos - Constants.CANNON_POSITIONS[i]);
 				if(distance < closestDistance || i == 0)
 				{
 					closestDistance = distance;
